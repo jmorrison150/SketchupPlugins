@@ -1,9 +1,18 @@
 require 'sketchup.rb'
 require 'extensions.rb'
 
-jm_extension = SketchupExtension.new "Sketchup Plugins", "jm_sketchupPlugins/loader"
-jm_extension.version = '0.0.1'
-jm_extension.copyright = "JRM 2017"
-jm_extension.description = "Sketchup Plugins"
-jm_extension.creator = "JRM"
-result = Sketchup.register_extension jm_extension, true
+module JRM
+  module CustomTool
+
+    unless file_loaded?(__FILE__)
+      ex = SketchupExtension.new('sketchupPlugins', 'jm_sketchupPlugins/main')
+      ex.description = 'SketchUp Plugins.'
+      ex.version     = '0.0.2'
+      ex.copyright   = 'JRM 2017'
+      ex.creator     = 'JRM'
+      Sketchup.register_extension(ex, true)
+      file_loaded(__FILE__)
+    end
+
+  end # module CustomTool
+end # module Examples
