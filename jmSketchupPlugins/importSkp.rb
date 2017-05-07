@@ -1,24 +1,8 @@
-=begin
 
-import_skp.rb
-
-Run the tool by typing
-  JRM::import_skp
-in the Ruby Console or picking 'Import SKP' from the File menu.
-In the dialog that appears navigate to the required Folder and pick one
-File of the 'type' to be imported.
-e.g. select any 'geometry' type [some are available for 'Pro' only]
-  skp, dwg, dxf, kml, dae, 2ds, dem, ddf
-or image files
-  png, jpg, tif, psd, tga, bmp
-=end
-###
 require 'sketchup.rb'
 ###
 module JRM
 
-
-file_loaded(__FILE__) ###
 
 def self.import_skp()
   ###
@@ -211,13 +195,6 @@ def self.import_skp()
 
 
 end#def import_skp
-### menu
-
-
-  UI.menu("File").add_item("Import SKP1"){self.import_skp()}
-unless file_loaded?(__FILE__) ### so only get menu item once...
-    UI.menu("File").add_item("Import SKP"){self.import_skp()} ###
-end#if ###
 
 end#module
 ###

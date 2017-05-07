@@ -1,34 +1,4 @@
-=begin
-(c) TIG 2009-2015
-
-import_from_folder.rb
-
-Run the tool by typing
-  TIG::import_from_folder
-in the Ruby Console or picking 'Import ALL from Folder' from the File menu.
-In the dialog that appears navigate to the required Folder and pick one 
-File of the 'type' to be imported.
-e.g. select any 'geometry' type [some are available for 'Pro' only]
-  skp, dwg, dxf, kml, dae, 2ds, dem, ddf
-or image files
-  png, jpg, tif, psd, tga, bmp
-Images are 'imported' differently...  They come in with their width/height 
-in inches based on their pixel-size, and they line up along X-axis [red]
-ALL files of the 'type' you selected will be imported from that folder 
-into the Model.
-SKPs produce an extra request on 'placement'...
-Progress of each file is shown in the VCB...
-A report TXT file is written in the chosen folder.
-
-v1.0 20091124 First issue.
-v1.1 20100305 Image 'import' added.
-v1.2 20110529 Module added.
-v1.3 20140116 STL files import added, uses last set options, need to OK each one.
-v1.4 20150124 Overhauled for newer SUp versions.
-v1.5 20150124 UTF-8 encoding forced to file names in >=v2014.
-v1.6 20150201 Multiple SKP import glitches [when unpurged etc] fixed.
-=end
-### 
+ 
 require 'sketchup.rb'
 ###
 module JRM
@@ -142,7 +112,7 @@ def self.import_from_folder()
 			defsIN << defn
 			compos << model.active_entities.add_instance(defn, tr) if place
 			fil.puts('done')
-		else			
+		else
 			fil.puts('failed')
 		end
 		fil.close
@@ -154,7 +124,7 @@ def self.import_from_folder()
 			###
 			if status
 				fil.puts('done')
-			else			
+			else
 				fil.puts('failed')
 			end
 			fil.close
@@ -201,4 +171,3 @@ end#if ###
 
 end#module
 ###
-

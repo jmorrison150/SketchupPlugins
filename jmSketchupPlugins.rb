@@ -5,9 +5,9 @@ module JRM
   module CustomTool
 
     unless file_loaded?(__FILE__)
-      ex = SketchupExtension.new('sketchupPlugins', 'jm_sketchupPlugins/main')
+      ex = SketchupExtension.new('sketchupPlugins', 'jm_sketchupPlugins/loader')
       ex.description = 'SketchUp Plugins.'
-      ex.version     = '0.0.2'
+      ex.version     = '0.0.3'
       ex.copyright   = 'JRM 2017'
       ex.creator     = 'JRM'
       Sketchup.register_extension(ex, true)

@@ -2,7 +2,7 @@
 
 require 'sketchup.rb'
 
-module Examples
+module JRM
   module CustomTool
 
     class LineTool
@@ -131,13 +131,6 @@ module Examples
       Sketchup.active_model.select_tool(LineTool.new)
     end
 
-    unless file_loaded?(__FILE__)
-      menu = UI.menu('Plugins')
-      menu.add_item('Custom Tool Example') {
-        self.activate_line_tool
-      }
-      file_loaded(__FILE__)
-    end
 
   end # module CustomTool
 end # module Examples

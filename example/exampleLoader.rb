@@ -1,7 +1,13 @@
-# Copyright 2016 Trimble Navigation Limited
 # Licensed under the MIT license
 
 module JRM
+  require "pushRandom.rb"
+  ### menu
+  unless file_loaded?(__FILE__) ### so only get menu item once...
+  	submenu=UI.menu("Plugins").add_sub_menu("SketchupPlugins")
+  	submenu.add_item("push Random"){JRM.pushRandom()}
+  	#    UI.menu("Draw").add_item("push Random"){self.pushRandom()} ###
+  end#if ###
 
   # Finds and returns the filename for each of the root .rb files in the
   # tutorials folder.
