@@ -1,9 +1,15 @@
 # Licensed under the MIT license
 
   require 'sketchup.rb'
-  require_relative 'importSkp.rb'
-  require_relative 'lineTool.rb'
-  require_relative 'pushRandom.rb'
+#  require_relative 'importSkp.rb'
+#  require_relative 'lineTool.rb'
+#  require_relative 'pushRandom.rb'
+
+
+  require_all(File.dirname(__FILE__))
+#  require_all('./')
+#  require_all('')
+#  require_all()
 
 module JRM
 
