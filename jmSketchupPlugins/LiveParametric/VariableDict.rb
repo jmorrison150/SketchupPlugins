@@ -7,7 +7,7 @@ class VariableDict
         @varTitle = varTitle
         @className = self.class.to_s
 
-		@html_width = 200
+		@html_width = 400
 		@html_height = 90
     end
 

@@ -3,8 +3,8 @@ require 'parametric'
 require 'LiveParametricHTMLWriter.rb'
 require 'ParameterDict.rb'
 
-include EJ
-# TODO: make sure all VariableDict classes are loaded here, so all subclasses of 
+#include EJ
+# TODO: make sure all VariableDict classes are loaded here, so all subclasses of
 # LiveParametric have access to them without specifically requiring them
 class LiveParametric < Parametric
     @@current_instances = {}
@@ -12,9 +12,9 @@ class LiveParametric < Parametric
     # Initialize
     def initialize(*args)
         data = args[0]
-        
+
         if not data
- 
+
             @dict = self.default_dict
             super(data)
             @dialog_open = false
@@ -34,7 +34,7 @@ class LiveParametric < Parametric
             @dict = parameterDictFromEntity(@entity)
             # Check with @entity to see if dialog_open is true
             @dialog_open = @dict.to_h["dialog_open"]
-            
+
             launchWebDialog
         end
     end
@@ -44,33 +44,33 @@ class LiveParametric < Parametric
         LiveParametric.parameters(entity).each_pair { |key, val| d.update(key, val) }
         d
     end
-    
+
     def LiveParametric.parameters(entity, create_if_needed=false)
         return nil if not entity
         attrib_holder = Parametric.attribute_holder(entity)
         attribs =  attrib_holder ? attrib_holder.attribute_dictionary("skpp", create_if_needed) : nil
-                  
+
         return nil if not attribs
         data = {}
         attribs.each { |key, value| data[key] = value}
         data
-    end 
+    end
 
 
     def launchWebDialog
         return if @dialog_open
-        
-        # Make a directory called html in the same directory as this file, 
+
+        # Make a directory called html in the same directory as this file,
         # and write our HTML there.
         htmlDir = File.join( File.dirname(__FILE__), "html")
         Dir.mkdir( htmlDir) if not File.exist? htmlDir
-        
+
         htmlFilename = File.join( htmlDir, "#{self.class}_#{@dict.unique_ID}.html")
         htmlWriter = LiveParametricHTMLWriter.new( @dict, htmlFilename)
-            
+
         #Create the web dialog
         scrollable = true
-        resizable = false
+        resizable = true
 
         html_width = htmlWriter.width
         html_height = htmlWriter.height
@@ -78,39 +78,39 @@ class LiveParametric < Parametric
         dialog = UI::WebDialog.new(@dict.title, scrollable, "nil", html_width, html_height, 850, 150, resizable);
 
         # Process variable changes from the WebDialog
-        dialog.add_action_callback("did_change") {|d,p| 
+        dialog.add_action_callback("did_change") {|d,p|
             key,val = p.split(",") if p
             # puts "LiveParametric.did_change:  #{key}: #{val}"
-            
+
             # Only redraw if we have valid data
             if key and val
                 # Find the dictionary that describes the changed variable
                 changedVarDict = @dict.variableDicts.find{|d| d.unique_id == key}
-                
+
                 # Change its variable
                 changedVarDict.setVal( val)
-            
+
                 # reload from the changed values
                 LiveParametric.editFromDict( @dict)
             end
         }
-    
-        # Remove the html file when the dialog closes so we don't clutter everything up. 
+
+        # Remove the html file when the dialog closes so we don't clutter everything up.
         dialog.set_on_close{
             @dialog_open = false
             @dict.update( "dialog_open", @dialog_open)
             begin
                 set_attributes(@dict.to_h)
             rescue TypeError
-                # entities have already been deleted.  Don't do anything 
+                # entities have already been deleted.  Don't do anything
             end
             htmlWriter.delete_file
         }
-    
+
         @dialog_open = true
         @dict.update( "dialog_open", @dialog_open)
         set_attributes( @dict.to_h)
-        
+
         dialog.set_file(htmlWriter.filename, nil)
         # dialog.set_html(htmlWriter.html)
         dialog.show
@@ -124,7 +124,7 @@ class LiveParametric < Parametric
             @dict = self.default_dict unless @dict
             launchWebDialog
         end
-        LiveParametric.dataFromDict( @dict) 
+        LiveParametric.dataFromDict( @dict)
     end
 
     def default_dict
@@ -137,15 +137,15 @@ class LiveParametric < Parametric
 
         p
     end
-  
+
     def LiveParametric.dataFromDict( dict)
         data = dict.to_h
     end
-    
+
     def setDict(dict)
         @dict = dict
     end
-    
+
     def LiveParametric.editFromDict(dict)
         if not dict
             puts "LiveParametric.editFromDict  called with nil. returning"
@@ -164,7 +164,7 @@ class LiveParametric < Parametric
 
         klass = data["class_name"]
         new_method = eval "#{klass}.method :new"
-        
+
         if entity
             # if there's already an entity, edit will replace it with the new version
             obj = new_method.call entity
@@ -217,9 +217,4 @@ class LiveParametric < Parametric
         self.class.to_s
     end
 
-end 
-
- 
-
-  
-
+end

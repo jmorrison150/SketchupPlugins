@@ -3,17 +3,17 @@ require 'VariableDict.rb'
 class Slider < VariableDict
     attr_reader :minVal, :maxVal, :curVal, :integerOnly, :showMinMax
 
-    def initialize( varTitle, minVal=0, maxVal=1.0, curVal=0.5, integerOnly=false, showMinMax=false)
+    def initialize( varTitle, minVal=0, maxVal=1.0, curVal=0.5, integerOnly=false, showMinMax=true)
         super(varTitle)
         @minVal = minVal
         @maxVal = maxVal
         @curVal = curVal
         @integerOnly = integerOnly
         @showMinMax = showMinMax
-        
-        @html_width = 200
+
+        @html_width = 300
         @html_height = 55
-        
+
         @html_height += 20 if showMinMax
 
     end
@@ -28,7 +28,7 @@ class Slider < VariableDict
 			@curVal = val.to_f
 		end
 	end
-	
+
 	def headerCode
 		[	%Q~<script src="../javascripts/scriptaculous/prototype.js" type="text/javascript"></script>~,
 			%Q~<script src="../javascripts/scriptaculous/slider.js"    type="text/javascript"></script>~,
@@ -36,7 +36,7 @@ class Slider < VariableDict
 		]
 	end
 
-	def cssStr 
+	def cssStr
 		<<-EOS
 		<style type="text/css">
 		/* put the left rounded edge on the track */
@@ -72,7 +72,7 @@ class Slider < VariableDict
         min = sprintf("%.2f",minVal)
         max = sprintf("%.2f",maxVal)
 
-       
+
         slider_id = unique_id+"_slider"
         left_id   = unique_id+"_left"
         handle_id = unique_id+"_handle"
@@ -81,19 +81,19 @@ class Slider < VariableDict
             cur = curVal.to_i
             min = minVal.to_i
             max = maxVal.to_i
-			rValStr = 'v.toFixed(0)' 
+			rValStr = 'v.toFixed(0)'
 		end
-		
-		onChangeStr = %Q~function(v) { 
+
+		onChangeStr = %Q~function(v) {
 			$('#{unique_id}').innerHTML = #{rValStr};
 			did_change('#{unique_id}', $('#{unique_id}').innerHTML);
 		}\n~
-        
+
         minMaxStr = ""
         if showMinMax
             minMaxStr = %Q{\n        <tr><td align ="left">#{min}</td><td align="right">#{max}</td></tr>\n}
         end
-        
+
         sliderStr = <<-EOS
         <table border="0" width=#{sliderWidth}px align="center">
         <tr><td align ="left">#{title}:</td><td align="right"id="#{unique_id}">#{cur}</td></tr>
