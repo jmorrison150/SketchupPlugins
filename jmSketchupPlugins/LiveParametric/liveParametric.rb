@@ -3,7 +3,7 @@ require 'parametric'
 require 'LiveParametricHTMLWriter.rb'
 require 'ParameterDict.rb'
 
-#include EJ
+
 # TODO: make sure all VariableDict classes are loaded here, so all subclasses of
 # LiveParametric have access to them without specifically requiring them
 class LiveParametric < Parametric
