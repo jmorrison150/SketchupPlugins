@@ -1,4 +1,4 @@
- 
+
 require 'sketchup.rb'
 ###
 module JRM
@@ -8,22 +8,23 @@ file_loaded(__FILE__) ###
 
 def self.import_from_folder()
   ###
-	  def self.get_file()
-	    msg="Import ALL Files: Choose TYPE..."
-	    Sketchup::set_status_text(msg)
-	    file = UI.openpanel(msg, "", "")
-	    unless file
-	      puts "IMPORT ALL - CANCELED."
-	      Sketchup.send_action("selectSelectionTool:")
-	      return nil
-	    else
-	      file = file.tr("\\","/")
-		  if defined?(Encoding)
-			file=file.force_encoding("UTF-8") ### v2014 lashup
-		  end
-	      return file
-	    end#if
+  def self.get_file()
+    msg="Import ALL Files: Choose TYPE..."
+    Sketchup::set_status_text(msg)
+    file = UI.openpanel(msg, "", "")
+    unless file
+      puts "IMPORT ALL - CANCELED."
+      Sketchup.send_action("selectSelectionTool:")
+      return nil
+    else
+      file = file.tr("\\","/")
+	  if defined?(Encoding)
+		file=file.force_encoding("UTF-8") ### v2014 lashup
 	  end
+      return file
+    end#if
+  end
+
   ###
   def self.get_folder(file)
     folder=File.dirname(file)

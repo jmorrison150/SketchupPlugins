@@ -22,7 +22,7 @@ def self.import_skp()
 		  end
 	      return file
 	    end#if
-  end
+  end#def
   ###
   def self.get_folder(file)
 	    folder=File.dirname(file)

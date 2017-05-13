@@ -10,14 +10,14 @@ module JRM
 		end#each
 	end#def
 
-#TODO
+	#TODO
 	def default_variables
 		[Slider.new("Push", 0.5.feet, 10.feet, 2.feet),
 			Slider.new("Height", 2.feet, 12.feet, 4.feet)
 		]
 	end
 
-#TODO
+	#TODO
 	def create_entities(data, container)
 		model = Sketchup.active_model
 		selection = model.selection.to_a
@@ -28,11 +28,11 @@ module JRM
 		container.add_item(faces)
 	end
 
-#TODO
+	#TODO
 	def default_parameters
 	end
 
-#TODO
+	#TODO
 	def translate_key(key)
 	end
 end#module
