@@ -58,6 +58,7 @@ module JRM
       submenu.add_item("line Tool"){JRM::activate_line_tool()}
       submenu.add_item("Onion Dome LP"){OnionDomeLP.new}
       submenu.add_item("Moving circles"){MovingCircles.new}
+      submenu.add_item("Import ALL from Folder"){JRM::import_from_folder()}
 
 
   end#unless ###
